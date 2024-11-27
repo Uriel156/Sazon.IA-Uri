@@ -1,22 +1,25 @@
 package com.Proyecto.SazonIA.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+import java.sql.Date;
 
 @Entity
+@Table(name = "configuration")
 public class ConfigurationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer configId;
 
+    @NotNull(message = "The user must not be null")
     @OneToOne
-    @JoinColumn(name = "user_id")
-    private userProfileModel userProfile;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_Id")
+    @JsonBackReference(value = "user-profile")
+    @Schema(description = "User to which the configuration belongs")
+    private UserProfileModel userProfile;
 
     @Column(name = "picture_id")
     private String pictureId;
@@ -27,11 +30,29 @@ public class ConfigurationModel {
     @Column(name = "upload_time")
     private java.sql.Timestamp uploadTime;
 
-    public userProfileModel getUserProfile() {
+    public ConfigurationModel() {
+    }
+
+    public ConfigurationModel(UserProfileModel userProfile, String pictureId, String imageUrl, java.sql.Timestamp uploadTime) {
+        this.userProfile = userProfile;
+        this.pictureId = pictureId;
+        this.imageUrl = imageUrl;
+        this.uploadTime = uploadTime;
+    }
+
+    public Integer getConfigId() {
+        return configId;
+    }
+
+    public void setConfigId(Integer configId) {
+        this.configId = configId;
+    }
+
+    public UserProfileModel getUserProfile() {
         return userProfile;
     }
 
-    public void setUserProfile(userProfileModel userProfile) {
+    public void setUserProfile(UserProfileModel userProfile) {
         this.userProfile = userProfile;
     }
 
@@ -59,23 +80,29 @@ public class ConfigurationModel {
         this.uploadTime = uploadTime;
     }
 
-
-    public void updateProfileDetails(String name, String paternalLastName, String maternalLastName, 
-                                   java.sql.Date birthdate, String phoneNumber, String email) {
-        this.userProfile.updateProfile(name, paternalLastName, maternalLastName, 
-                                     birthdate, phoneNumber, email);
-    }
-
     public void updateProfilePicture(String pictureId, String imageUrl) {
         this.pictureId = pictureId;
         this.imageUrl = imageUrl;
-        this.uploadTime = new java.sql.Timestamp(System.currentTimeMillis());
     }
+
+
     @Override
     public String toString() {
-        return "ConfigurationModel [userProfile=" + userProfile + 
-               ", pictureId=" + pictureId + 
-               ", imageUrl=" + imageUrl + 
-               ", uploadTime=" + uploadTime + "]";
+        return "ConfigurationModel{" +
+                "configId=" + configId +
+                ", userProfile=" + userProfile +
+                ", pictureId=" + pictureId +
+                ", imageUrl=" + imageUrl +
+                ", uploadTime=" + uploadTime +
+                '}';
     }
-} 
+
+    public void updateProfileDetails(String name, String paternalLastName, String maternalLastName, Date birthdate, String phoneNumber, String email) {
+        this.userProfile.setName(name);
+        this.userProfile.setPaternalLastName(paternalLastName);
+        this.userProfile.setMaternalLastName(maternalLastName);
+        this.userProfile.setBirthdate(birthdate);
+        this.userProfile.setPhoneNumber(phoneNumber);
+        this.userProfile.setEmail(email);
+    }
+}

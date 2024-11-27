@@ -1,6 +1,7 @@
 package com.Proyecto.SazonIA.service;
 
-import com.Proyecto.SazonIA.model.userProfileModel;
+import com.Proyecto.SazonIA.model.UserFollowerModel;
+import com.Proyecto.SazonIA.model.UserProfileModel;
 import com.Proyecto.SazonIA.repository.userProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,20 +11,20 @@ import java.util.Set;
 import java.util.ArrayList;
 
 @Service
-public class userProfileService {
+public class UserProfileService {
 
     @Autowired
     private userProfileRepository userProfileRepository;
 
-    public List<userProfileModel> getAllUserProfiles() {
+    public List<UserProfileModel> getAllUserProfiles() {
         return userProfileRepository.findAll();
     }
 
-    public Optional<userProfileModel> getUserProfileById(Integer id) {
-        return userProfileRepository.findById(id);
+    public UserProfileModel getUserProfileById(Integer id) {
+        return userProfileRepository.findUserProfileByUserId(id);
     }
 
-    public userProfileModel saveUserProfile(userProfileModel userProfile) {
+    public UserProfileModel saveUserProfile(UserProfileModel userProfile) {
         return userProfileRepository.save(userProfile);
     }
 
@@ -31,43 +32,43 @@ public class userProfileService {
         userProfileRepository.deleteById(id);
     }
 
-    public Set<userProfileModel> getFollowers(Integer userId) {
-        userProfileModel user = userProfileRepository.findById(userId)
+    public Set<UserFollowerModel> getFollowers(Integer userId) {
+        UserProfileModel user = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("user not found"));
-        
         return user.getFollowers();
     }
 
-    public Set<userProfileModel> getFollowing(Integer userId) {
-        userProfileModel user = userProfileRepository.findById(userId)
+    public Set<UserFollowerModel> getFollowing(Integer userId) {
+        UserProfileModel user = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("user not found"));
         
         return user.getFollowing();
     }
 
     public void followUser(Integer userId, Integer followerId) {
-        userProfileModel user = userProfileRepository.findById(userId)
+        UserProfileModel user = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("user not found"));
-        userProfileModel follower = userProfileRepository.findById(followerId)
+        UserProfileModel follower = userProfileRepository.findById(followerId)
                 .orElseThrow(() -> new RuntimeException("follower not found"));
-        
-        user.addFollower(follower);
+
+        UserFollowerModel userFollower = new UserFollowerModel(user, follower);
+        user.addFollowing(userFollower);
         userProfileRepository.save(user);
         userProfileRepository.save(follower);
     }
 
-    public List<userProfileModel> getUserFollowers(Integer id) {
-        Optional<userProfileModel> userOptional = userProfileRepository.findById(id);
+    public List<UserFollowerModel> getUserFollowers(Integer id) {
+        Optional<UserProfileModel> userOptional = userProfileRepository.findById(id);
         return userOptional.map(user -> new ArrayList<>(user.getFollowers())).orElseGet(ArrayList::new);
     }
 
-    public List<userProfileModel> getUserFollowing(Integer id) {
-        Optional<userProfileModel> userOptional = userProfileRepository.findById(id);
+    public List<UserFollowerModel> getUserFollowing(Integer id) {
+        Optional<UserProfileModel> userOptional = userProfileRepository.findById(id);
         return userOptional.map(user -> new ArrayList<>(user.getFollowing())).orElseGet(ArrayList::new);
     }
 
-    public userProfileModel updateUserProfile(Integer userId, userProfileModel userProfile) {
-        userProfileModel existingProfile = userProfileRepository.findById(userId)
+    public UserProfileModel updateUserProfile(Integer userId, UserProfileModel userProfile) {
+        UserProfileModel existingProfile = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         
         // Actualiza los detalles del perfil

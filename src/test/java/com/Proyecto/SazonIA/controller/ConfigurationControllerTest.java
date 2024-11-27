@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 import com.Proyecto.SazonIA.model.ConfigurationModel;
-import com.Proyecto.SazonIA.model.userProfileModel;
+import com.Proyecto.SazonIA.model.UserProfileModel;
 import com.Proyecto.SazonIA.service.ConfigurationService;
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class ConfigurationControllerTest {
     void updateUserProfileDetailsTest() {
         // Arrange
         Integer userId = 1;
-        userProfileModel userProfile = new userProfileModel();
+        UserProfileModel userProfile = new UserProfileModel();
         ConfigurationModel expectedConfig = new ConfigurationModel();
         when(configurationService.updateUserProfileDetails(userId, userProfile)).thenReturn(expectedConfig);
         

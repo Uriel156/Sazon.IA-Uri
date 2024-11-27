@@ -1,11 +1,14 @@
 package com.Proyecto.SazonIA.repository;
 
-import com.Proyecto.SazonIA.model.userProfileModel; // Asegúrate de que el nombre del modelo esté en mayúscula
+import com.Proyecto.SazonIA.model.UserProfileModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface userProfileRepository extends JpaRepository<userProfileModel, Integer> {
-    // Aquí puedes agregar métodos personalizados si es necesario
-}
+public interface userProfileRepository extends JpaRepository<UserProfileModel, Integer> {
 
+    //Search a userProfile by id
+    @Query(value = "SELECT * FROM user u WHERE u.user_id = :userId", nativeQuery = true)
+    UserProfileModel findUserProfileByUserId(Integer userId);
+}

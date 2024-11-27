@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.Proyecto.SazonIA.model.ConfigurationModel;
-import com.Proyecto.SazonIA.model.userProfileModel;
+import com.Proyecto.SazonIA.model.UserProfileModel;
 import com.Proyecto.SazonIA.repository.ConfigurationRepository;
 
 import java.util.Optional;
@@ -31,7 +31,7 @@ public class ConfigurationServiceTest {
     void updateUserProfileDetailsTest() {
         // Arrange
         Integer userId = 1;
-        userProfileModel userProfile = new userProfileModel();
+        UserProfileModel userProfile = new UserProfileModel();
         ConfigurationModel config = new ConfigurationModel();
         when(configurationRepository.findByUserProfile_UserId(userId)).thenReturn(Optional.of(config));
         when(configurationRepository.save(config)).thenReturn(config);

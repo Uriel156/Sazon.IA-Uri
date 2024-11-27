@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.Proyecto.SazonIA.model.userProfileModel;
+import com.Proyecto.SazonIA.model.UserProfileModel;
 import com.Proyecto.SazonIA.repository.userProfileRepository;
 
 import java.util.Arrays;
@@ -21,21 +21,21 @@ public class userProfileServiceTest {
     @MockBean
     private userProfileRepository userProfileRepository;
     
-    private userProfileService userProfileService;
+    private UserProfileService userProfileService;
     
     @BeforeEach
     void setUp() {
-        userProfileService = new userProfileService();
+        userProfileService = new UserProfileService();
     }
     
     @Test
     void getAllUserProfilesTest() {
         // Arrange
-        List<userProfileModel> expectedProfiles = Arrays.asList(new userProfileModel(), new userProfileModel());
+        List<UserProfileModel> expectedProfiles = Arrays.asList(new UserProfileModel(), new UserProfileModel());
         when(userProfileRepository.findAll()).thenReturn(expectedProfiles);
         
         // Act
-        List<userProfileModel> result = userProfileService.getAllUserProfiles();
+        List<UserProfileModel> result = userProfileService.getAllUserProfiles();
         
         // Assert
         assertEquals(expectedProfiles, result);
@@ -45,11 +45,11 @@ public class userProfileServiceTest {
     void getUserProfileByIdTest() {
         // Arrange
         Integer userId = 1;
-        userProfileModel expectedProfile = new userProfileModel();
+        UserProfileModel expectedProfile = new UserProfileModel();
         when(userProfileRepository.findById(userId)).thenReturn(Optional.of(expectedProfile));
         
         // Act
-        Optional<userProfileModel> result = userProfileService.getUserProfileById(userId);
+        Optional<UserProfileModel> result = userProfileService.getUserProfileById(userId);
         
         // Assert
         assertTrue(result.isPresent());

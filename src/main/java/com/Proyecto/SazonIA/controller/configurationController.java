@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.Proyecto.SazonIA.model.ConfigurationModel;
-import com.Proyecto.SazonIA.model.userProfileModel;
+import com.Proyecto.SazonIA.model.UserProfileModel;
 import com.Proyecto.SazonIA.service.ConfigurationService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,20 +25,7 @@ public class configurationController {
     @Autowired
     private ConfigurationService configurationService;
 
-    @PutMapping("/{userId}/update")
-    public ResponseEntity<ConfigurationModel> updateUserProfileDetails(
-            @PathVariable Integer userId, 
-            @RequestBody userProfileModel userProfile) {
-        try {
-            // Se asegura de que el perfil se actualice correctamente
-            ConfigurationModel updatedConfig = configurationService.updateUserProfileDetails(userId, userProfile);
-            return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping("/{userId}/update-picture")
+    @PutMapping("/update-picture/{userId}")
     public ResponseEntity<ConfigurationModel> updateProfilePicture(
             @PathVariable Integer userId, 
             @RequestBody Map<String, String> pictureInfo) {

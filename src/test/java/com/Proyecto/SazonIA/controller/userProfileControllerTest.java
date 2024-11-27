@@ -10,8 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
-import com.Proyecto.SazonIA.model.userProfileModel;
-import com.Proyecto.SazonIA.service.userProfileService;
+import com.Proyecto.SazonIA.model.UserProfileModel;
+import com.Proyecto.SazonIA.service.UserProfileService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,23 +21,23 @@ import java.util.Optional;
 public class userProfileControllerTest {
 
     @MockBean
-    private userProfileService userProfileService;
+    private UserProfileService userProfileService;
     
-    private userProfileController controller;
+    private UserProfileController controller;
     
     @BeforeEach
     void setUp() {
-        controller = new userProfileController();
+        controller = new UserProfileController();
     }
     
     @Test
     void getAllUserProfilesTest() {
         // Arrange
-        List<userProfileModel> expectedProfiles = Arrays.asList(new userProfileModel(), new userProfileModel());
+        List<UserProfileModel> expectedProfiles = Arrays.asList(new UserProfileModel(), new UserProfileModel());
         when(userProfileService.getAllUserProfiles()).thenReturn(expectedProfiles);
         
         // Act
-        ResponseEntity<List<userProfileModel>> response = controller.getAllUserProfiles();
+        ResponseEntity<List<UserProfileModel>> response = controller.getAllUserProfiles();
         
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -48,11 +48,11 @@ public class userProfileControllerTest {
     void getUserProfileByIdTest() {
         // Arrange
         Integer userId = 1;
-        userProfileModel expectedProfile = new userProfileModel();
+        UserProfileModel expectedProfile = new UserProfileModel();
         when(userProfileService.getUserProfileById(userId)).thenReturn(Optional.of(expectedProfile));
         
         // Act
-        ResponseEntity<userProfileModel> response = controller.getUserProfileById(userId);
+        ResponseEntity<UserProfileModel> response = controller.getUserProfileById(userId);
         
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
