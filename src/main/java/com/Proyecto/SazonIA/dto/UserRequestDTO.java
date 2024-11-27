@@ -2,28 +2,6 @@ package com.Proyecto.SazonIA.dto;
 
 public class UserRequestDTO {
 
-    /*
-    *    @Column(name = "first_name", nullable = false)
-    private String name;
-
-    @Column(name = "last_name_father", nullable = false)
-    private String paternalLastName;
-
-    @Column(name = "last_name_mother", nullable = false)
-    private String maternalLastName;
-
-    @Column(name = "birth_date", nullable = false)
-    private java.sql.Date birthdate;
-
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
-
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-    * */
     private String name;
     private String paternalLastName;
     private String maternalLastName;
