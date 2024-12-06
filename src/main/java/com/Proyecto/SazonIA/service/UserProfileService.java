@@ -71,7 +71,7 @@ public class UserProfileService {
         UserProfileModel existingProfile = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         
-        // Actualiza los detalles del perfil
+        
         existingProfile.setName(userProfile.getName());
         existingProfile.setPaternalLastName(userProfile.getPaternalLastName());
         existingProfile.setMaternalLastName(userProfile.getMaternalLastName());
@@ -79,7 +79,7 @@ public class UserProfileService {
         existingProfile.setPhoneNumber(userProfile.getPhoneNumber());
         existingProfile.setEmail(userProfile.getEmail());
         
-        // Guarda los cambios en la base de datos
+        
         return userProfileRepository.save(existingProfile);
     }
 
