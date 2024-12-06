@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.Proyecto.SazonIA.model.ConfigurationModel;
-import com.Proyecto.SazonIA.model.UserProfileModel;
 import com.Proyecto.SazonIA.service.ConfigurationService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
