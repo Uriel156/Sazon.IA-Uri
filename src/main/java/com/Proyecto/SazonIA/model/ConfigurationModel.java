@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "configuration")
@@ -16,7 +17,7 @@ public class ConfigurationModel {
 
     @NotNull(message = "The user must not be null")
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_Id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @JsonBackReference(value = "user-profile")
     @Schema(description = "User to which the configuration belongs")
     private UserProfileModel userProfile;
@@ -28,12 +29,12 @@ public class ConfigurationModel {
     private String imageUrl;
 
     @Column(name = "upload_time")
-    private java.sql.Timestamp uploadTime;
+    private Timestamp uploadTime;
 
     public ConfigurationModel() {
     }
 
-    public ConfigurationModel(UserProfileModel userProfile, String pictureId, String imageUrl, java.sql.Timestamp uploadTime) {
+    public ConfigurationModel(UserProfileModel userProfile, String pictureId, String imageUrl, Timestamp uploadTime) {
         this.userProfile = userProfile;
         this.pictureId = pictureId;
         this.imageUrl = imageUrl;
@@ -72,11 +73,11 @@ public class ConfigurationModel {
         this.imageUrl = imageUrl;
     }
 
-    public java.sql.Timestamp getUploadTime() {
+    public Timestamp getUploadTime() {
         return uploadTime;
     }
 
-    public void setUploadTime(java.sql.Timestamp uploadTime) {
+    public void setUploadTime(Timestamp uploadTime) {
         this.uploadTime = uploadTime;
     }
 
