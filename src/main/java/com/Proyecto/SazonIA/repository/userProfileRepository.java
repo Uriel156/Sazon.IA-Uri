@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface userProfileRepository extends JpaRepository<UserProfileModel, Integer> {
 
     //Search a userProfile by id
-    @Query(value = "SELECT * FROM user u WHERE u.user_id = :userId", nativeQuery = true)
+    @Query(value = "SELECT * FROM userSazon u WHERE u.user_id = :userId", nativeQuery = true)
     UserProfileModel findUserProfileByUserId(Integer userId);
 }
