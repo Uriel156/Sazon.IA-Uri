@@ -13,6 +13,6 @@ public interface UserFollowerRepository extends JpaRepository<UserFollowerModel,
     @Query(value = "SELECT * FROM user_follower uf WHERE uf.follower_id = :userId", nativeQuery = true)
     List<UserFollowerModel> findFollowersByUserId(@Param("userId") Integer userId, Pageable pageable);
 
-    @Query(value = "SELECT * FROM user_follower uf WHERE uf. = :followerId", nativeQuery = true)
+    @Query(value = "SELECT * FROM user_follower uf WHERE uf.user_id = :followerId", nativeQuery = true)
     List<UserFollowerModel> findFollowingsByFollowerId(@Param("followerId") Integer followerId, Pageable pageable);
 }

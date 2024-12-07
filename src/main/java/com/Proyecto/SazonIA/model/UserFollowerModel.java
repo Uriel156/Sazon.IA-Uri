@@ -12,14 +12,14 @@ import jakarta.validation.constraints.NotNull;
 public class UserFollowerModel {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_Id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @JsonBackReference(value = "user-follower")
     @NotBlank(message = "The user must not be null")
     @JsonProperty("users")
     private UserProfileModel user_id;
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "follower_id", referencedColumnName = "user_Id")
+    @JoinColumn(name = "follower_id", referencedColumnName = "user_id")
     @JsonBackReference(value = "user-following")
     @NotNull(message = "The follower user must not be null")
     @JsonProperty("followerUser")
