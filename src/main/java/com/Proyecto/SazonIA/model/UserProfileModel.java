@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.HashSet;
 
 @Entity
-@Table(name = "user")
+@Table(name = "userSazon")
 public class UserProfileModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
