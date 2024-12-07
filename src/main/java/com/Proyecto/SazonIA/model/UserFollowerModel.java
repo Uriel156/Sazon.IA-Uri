@@ -15,7 +15,7 @@ public class UserFollowerModel {
     @JoinColumn(name = "user_id", referencedColumnName = "user_Id")
     @JsonBackReference(value = "user-follower")
     @NotBlank(message = "The user must not be null")
-    @JsonProperty("user")
+    @JsonProperty("users")
     private UserProfileModel user_id;
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
